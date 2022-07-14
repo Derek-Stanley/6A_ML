@@ -1,23 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[22]:
-
 
 get_ipython().system('pip install pgmpy')
-
-
-# In[32]:
 
 
 from pgmpy.models import BayesianModel
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.inference import VariableElimination
 import numpy as np
-
-
-# In[48]:
-
 
 #bayesNet = BayesianModel([("M", "R"),("U", "R"),("B", "R"),("R", "S")])
 bayesNet.add_node("M")
@@ -32,10 +20,6 @@ bayesNet.add_edge("B", "R")
 bayesNet.add_edge("B", "S")
 bayesNet.add_edge("R", "S")
 
-
-# In[49]:
-
-
 cpd_A = TabularCPD('M', 2, values=[[.95], [.05]])
 cpd_U = TabularCPD('U', 2, values=[[.85], [.15]])
 cpd_H = TabularCPD('B', 2, values=[[.90], [.10]])
@@ -48,55 +32,26 @@ cpd_R = TabularCPD('R', 2,
                    evidence=['M', 'B', 'U'], evidence_card=[2, 2,2])
 bayesNet.add_cpds(cpd_A, cpd_U, cpd_H, cpd_S, cpd_R)
 
-
-# In[50]:
-
-
 bayesNet.check_model()
 print("Model is correct.")
-
-
-# In[51]:
 
 
 solver = VariableElimination(bayesNet)
 
 
-# In[52]:
-
-
 result = solver.query(variables=['R'])
 print("R", result)
 
-
-# In[54]:
-
-
 result = solver.query(variables=['R'], evidence={'M': 1})
 print("R| M", result)
-
-
-# In[55]:
 
 
 result = solver.query(variables=['S'], evidence={'B': 1})
 print("S| B", result)
 
 
-# In[31]:
-
-
 bayesNet.get_independencies()
 
 
-# In[44]:
-
-
 bayesNet.get_cpds('R')
-
-
-# In[ ]:
-
-
-
 
