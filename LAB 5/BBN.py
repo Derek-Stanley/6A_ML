@@ -8,6 +8,7 @@ from pgmpy.inference import VariableElimination
 import numpy as np
 
 #bayesNet = BayesianModel([("M", "R"),("U", "R"),("B", "R"),("R", "S")])
+bayesNet = BayesianModel()
 bayesNet.add_node("M")
 bayesNet.add_node("U")
 bayesNet.add_node("R")
